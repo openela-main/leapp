@@ -7,7 +7,7 @@
 # it. In case of upstream, dependencies are set differently, but YUM is not
 # capable enough to deal with them correctly all the time; we continue to use
 # simplified deps in RHEL to ensure that YUM can deal with it.
-%global framework_version 3.1
+%global framework_version 5.0
 
 # IMPORTANT: everytime the requirements are changed, increment number by one
 # - same for Provides in deps subpackage
@@ -36,8 +36,8 @@
 %endif
 
 Name:       leapp
-Version:    0.15.1
-Release:    1%{?dist}
+Version:    0.16.0
+Release:    2%{?dist}
 Summary:    OS & Application modernization framework
 
 License:    ASL 2.0
@@ -65,7 +65,6 @@ Requires: leapp-repository
 
 # PATCHES HERE
 # Patch0001: filename.patch
-
 
 %description
 Leapp utility provides the possibility to use the Leapp framework via CLI.
@@ -243,6 +242,25 @@ install -m 0644 -p man/leapp.1 %{buildroot}%{_mandir}/man1/
 # no files here
 
 %changelog
+* Wed Aug 23 2023 Petr Stodulka <pstodulk@redhat.com> - 0.16.0-2
+- Bump leapp-framework to 5.0
+- Resolves: #2223312
+
+* Wed Aug 23 2023 Petr Stodulka <pstodulk@redhat.com> - 0.16.0-1
+- Rebase to v0.16.0
+- Bump leapp-framework to 5.0
+- Improve the report overview to include also information about errors
+- Distinguish errors from valid reports in the generated txt report file
+- Resolves: #2223312
+
+* Mon Jul 17 2023 Petr Stodulka <pstodulk@redhat.com> - 0.15.1-2
+- Bump leapp-framework to 4.0
+- Improve the report summary output to make it more visible
+- Fix processing data in remediation instructions with non-ascii characters
+- Fix creation of Dialog for Component without choices
+- Store tracebacks from actors in leapp.db
+- Resolves: #2223312
+
 * Tue Feb 21 2023 Petr Stodulka <pstodulk@redhat.com> - 0.15.1-1
 - Rebase to v0.15.1
 - Change DAC for /var/lib/leapp to 0700 to make it accessible for root only
