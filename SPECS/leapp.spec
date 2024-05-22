@@ -36,8 +36,8 @@
 %endif
 
 Name:       leapp
-Version:    0.16.0
-Release:    2%{?dist}
+Version:    0.17.0
+Release:    1%{?dist}
 Summary:    OS & Application modernization framework
 
 License:    ASL 2.0
@@ -65,6 +65,7 @@ Requires: leapp-repository
 
 # PATCHES HERE
 # Patch0001: filename.patch
+
 
 %description
 Leapp utility provides the possibility to use the Leapp framework via CLI.
@@ -242,6 +243,14 @@ install -m 0644 -p man/leapp.1 %{buildroot}%{_mandir}/man1/
 # no files here
 
 %changelog
+* Tue Feb 13 2024 Toshio Kuratomi <toshio@fedoraproject.org> - - 0.17.0-1
+- Rebase to upstream version v0.17.0.
+- Resolves: RHEL-21451
+
+* Fri Jan 12 2024 Petr Stodulka <pstodulk@redhat.com> - 0.16.0-3
+- Add external links to the text version of the generated report file
+- Resolves: RHEL-21451
+
 * Wed Aug 23 2023 Petr Stodulka <pstodulk@redhat.com> - 0.16.0-2
 - Bump leapp-framework to 5.0
 - Resolves: #2223312
