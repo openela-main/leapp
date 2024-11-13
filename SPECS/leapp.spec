@@ -36,7 +36,7 @@
 %endif
 
 Name:       leapp
-Version:    0.17.0
+Version:    0.18.0
 Release:    1%{?dist}
 Summary:    OS & Application modernization framework
 
@@ -65,7 +65,6 @@ Requires: leapp-repository
 
 # PATCHES HERE
 # Patch0001: filename.patch
-
 
 %description
 Leapp utility provides the possibility to use the Leapp framework via CLI.
@@ -159,7 +158,6 @@ Requires: findutils
 
 
 # APPLY REGISTERED PATCHES HERE
-# %%patch0001 -p1
 
 
 ##################################################
@@ -243,6 +241,22 @@ install -m 0644 -p man/leapp.1 %{buildroot}%{_mandir}/man1/
 # no files here
 
 %changelog
+* Fri Aug 16 2024 Toshio Kuratomi <toshio@fedoraproject.org> - 0.18.0-1
+- Rebase to new upstream version 0.18.0.
+- Properly close file descriptors for executed shell commands.
+- Resolves: RHEL-27848
+
+* Wed Jul 24 2024 Toshio Kuratomi <toshio@fedoraproject.org> - 0.17.0-3
+- Fix broken leapp db queries on rerun
+- Port all code to be Python-3.12 compatible.
+- Resolves: RHEL-40363
+
+* Mon May 13 2024 Toshio Kuratomi <toshio@fedoraproject.org> - 0.17.0-2
+- Minor improvement of the summary overview in the console output.
+- Store metadata about the LEAPP plugins inside leapp audit db.
+- Prevent leapp from starting if an instance is already runnning.
+- Resolves: RHEL-27848, RHEL-25407
+
 * Tue Feb 13 2024 Toshio Kuratomi <toshio@fedoraproject.org> - - 0.17.0-1
 - Rebase to upstream version v0.17.0.
 - Resolves: RHEL-21451
