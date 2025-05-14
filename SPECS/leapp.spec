@@ -7,11 +7,11 @@
 # it. In case of upstream, dependencies are set differently, but YUM is not
 # capable enough to deal with them correctly all the time; we continue to use
 # simplified deps in RHEL to ensure that YUM can deal with it.
-%global framework_version 5.0
+%global framework_version 6.0
 
 # IMPORTANT: everytime the requirements are changed, increment number by one
 # - same for Provides in deps subpackage
-%global framework_dependencies 5
+%global framework_dependencies 6
 
 # Do not build bindings for python3 for RHEL == 7
 # # Currently Py2 is dead on Fedora and we don't have to support it. As well,
@@ -36,7 +36,7 @@
 %endif
 
 Name:       leapp
-Version:    0.18.0
+Version:    0.19.0
 Release:    1%{?dist}
 Summary:    OS & Application modernization framework
 
@@ -130,6 +130,7 @@ Provides: leapp-framework-dependencies = %{framework_dependencies}
 Requires: python-six
 Requires: python-setuptools
 Requires: python-requests
+Requires: PyYAML
 %else # <> rhel 7
 # for Fedora & RHEL 8+ deliver just python3 stuff
 # NOTE: requirement on python3 refers to the general version of Python
@@ -140,6 +141,7 @@ Requires: python3
 Requires: python3-six
 Requires: python3-setuptools
 Requires: python3-requests
+Requires: python3-PyYAML
 %endif
 Requires: findutils
 ##################################################
@@ -158,6 +160,7 @@ Requires: findutils
 
 
 # APPLY REGISTERED PATCHES HERE
+# %%patch -P 0001 -p1
 
 
 ##################################################
@@ -181,6 +184,7 @@ install -m 0755 -d %{buildroot}%{_datadir}/leapp/report_schema
 install -m 0644 -p report-schema-v110.json %{buildroot}%{_datadir}/leapp/report_schema/report-schema.json
 install -m 0700 -d %{buildroot}%{_sharedstatedir}/leapp
 install -m 0755 -d %{buildroot}%{_sysconfdir}/leapp
+install -m 0755 -d %{buildroot}%{_sysconfdir}/leapp/actor_conf.d/
 install -m 0755 -d %{buildroot}%{_sysconfdir}/leapp/repos.d
 install -m 0600 -d %{buildroot}%{_sysconfdir}/leapp/answers
 # standard directory should have permission set to 0755, however this directory
@@ -205,6 +209,7 @@ install -m 0644 -p man/leapp.1 %{buildroot}%{_mandir}/man1/
 %config(noreplace) %{_sysconfdir}/leapp/leapp.conf
 %config(noreplace) %{_sysconfdir}/leapp/logger.conf
 %dir %{_sysconfdir}/leapp
+%dir %{_sysconfdir}/leapp/actor_conf.d
 %dir %{_sysconfdir}/leapp/answers
 %dir %{_sysconfdir}/leapp/repos.d
 %{_bindir}/leapp
@@ -241,6 +246,20 @@ install -m 0644 -p man/leapp.1 %{buildroot}%{_mandir}/man1/
 # no files here
 
 %changelog
+* Fri Feb 14 2025 Petr Stodulka <pstodulk@redhat.com> - 0.19.0-1
+- Rebase to new upstream version 0.19.0
+- Add possibility to use a specified execution context for snactor run in an existing leapp.db
+- Increase limits on the number of opened file descriptors and maximum size
+  of manipulated files when running leapp
+- Resolves: RHEL-67622, RHEL-79411
+
+* Mon Nov 18 2024 Petr Stodulka <pstodulk@redhat.com> - 0.18.0-2
+- Bump leapp-framework to 6.0
+- Bump leapp-framework-dependencies to 6
+- Require python3-PyYAML
+- [Technical preview] Introduce configurability for leapp actors
+- Resolves: RHEL-67622
+
 * Fri Aug 16 2024 Toshio Kuratomi <toshio@fedoraproject.org> - 0.18.0-1
 - Rebase to new upstream version 0.18.0.
 - Properly close file descriptors for executed shell commands.
