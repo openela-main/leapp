@@ -7,7 +7,7 @@
 # it. In case of upstream, dependencies are set differently, but YUM is not
 # capable enough to deal with them correctly all the time; we continue to use
 # simplified deps in RHEL to ensure that YUM can deal with it.
-%global framework_version 6.0
+%global framework_version 6.1
 
 # IMPORTANT: everytime the requirements are changed, increment number by one
 # - same for Provides in deps subpackage
@@ -36,7 +36,7 @@
 %endif
 
 Name:       leapp
-Version:    0.19.0
+Version:    0.20.0
 Release:    1%{?dist}
 Summary:    OS & Application modernization framework
 
@@ -160,6 +160,7 @@ Requires: findutils
 
 
 # APPLY REGISTERED PATCHES HERE
+# %%patch -P 0001 -p1
 
 
 ##################################################
@@ -245,6 +246,17 @@ install -m 0644 -p man/leapp.1 %{buildroot}%{_mandir}/man1/
 # no files here
 
 %changelog
+* Thu Aug 14 2025 Karolina Kula <kkula@redhat.com> - 0.20.0-1
+- Rebase to new upstream 0.20.0
+- Resolves: RHEL-86225
+
+* Tue May 13 2025 Petr Stodulka <pstodulk@redhat.com> - 0.19.0-2
+- Bump leapp-framework to 6.1
+- Create the /var/lib/leapp directory automatically if missing
+- Recognize configuration files with the .yaml suffix only
+- Fix CLI: allow to set falsy values as default for leapp's command options
+- Resolves: RHEL-86225
+
 * Fri Feb 14 2025 Petr Stodulka <pstodulk@redhat.com> - 0.19.0-1
 - Rebase to new upstream version 0.19.0
 - Add possibility to use a specified execution context for snactor run in an existing leapp.db
