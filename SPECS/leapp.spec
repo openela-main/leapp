@@ -7,7 +7,7 @@
 # it. In case of upstream, dependencies are set differently, but YUM is not
 # capable enough to deal with them correctly all the time; we continue to use
 # simplified deps in RHEL to ensure that YUM can deal with it.
-%global framework_version 6.2
+%global framework_version 6.6
 
 # IMPORTANT: everytime the requirements are changed, increment number by one
 # - same for Provides in deps subpackage
@@ -36,7 +36,7 @@
 %endif
 
 Name:       leapp
-Version:    0.21.0
+Version:    0.22.0
 Release:    1%{?dist}
 Summary:    OS & Application modernization framework
 
@@ -246,6 +246,21 @@ install -m 0644 -p man/leapp.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Thu Jul 30 2026 Matej Matuska <mmatuska@redhat.com> - 0.22.0-1
+- Rebase on upstream version 0.22.0
+- Resolves: RHEL-188372
+
+* Thu Jun 25 2026 Karolina Kula <kkula@redhat.com> - 0.21.0-3
+- Bump leapp-framework to 6.6
+- Fix crash when multiple actors use the same config schema
+- Resolves: RHEL-188372
+
+* Fri Apr 17 2026 Petr Stodulka <pstodulk@redhat.com> - 0.21.0-2
+- Bump leapp-framework to 6.5
+- Change how commands are converted for text based report from the list representation
+- Introduce the format_list function for unified presentation of lists in reports and logs
+- Resolves: RHEL-156521
+
 * Tue Feb 10 2026 Karolina Kula <kkula@redhat.com> - 0.21.0-1
 - Rebase to new upstream 0.21.0
 - Resolves: RHEL-128269
